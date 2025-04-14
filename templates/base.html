@@ -1,0 +1,47 @@
+{% load static %}
+{% load blog_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<div id="header">
+    <h1><a href="/">My Blog</a></h1>
+</div>
+
+<div id="menu">
+ {% if user.is_authenticated %}
+    <h2>Welcome, {{ user.username }}!</h2>
+ {% else %}
+    <h2>Welcome, Guest!</h2>
+ {% endif %}
+<ul>
+    <li><a href="{% url 'blog:post_list' %}">Post list</a></li>
+    {% if user.is_authenticated %}
+            <li><a href="{% url 'blog:my_posts' %}">My Posts</a></li>
+            <li><a href="{% url 'blog:post_add' %}">Add Post</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+    {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+    {% endif %}
+</ul>
+</div>
+
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<div id="sidebar">
+    <h2>About</h2>
+    <p>This is my blog. Published {% total_posts %} posts.</p>
+</div>
+
+</body>
+</html>

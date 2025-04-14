@@ -1,0 +1,47 @@
+{% extends 'base_bootstrap.html' %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h2 class="mb-4 text-center">Register</h2>
+    <form method="post" class="border p-4 rounded bg-light shadow-sm">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="id_username" class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" id="id_username" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_email" class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" id="id_email" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_password1" class="form-label">Password</label>
+        <input type="password" name="password1" class="form-control" id="id_password1" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_password2" class="form-label">Repeat Password</label>
+        <input type="password" name="password2" class="form-control" id="id_password2" required>
+      </div>
+
+      {% if form.errors %}
+        <div class="text-danger small">
+          {{ form.errors }}
+        </div>
+      {% endif %}
+
+      <div class="mt-4">
+        <button type="submit" class="btn btn-success w-100">Register</button>
+      </div>
+    </form>
+    <p class="text-center mt-3">
+      Already have an account?
+      <a href="{% url 'login' %}">Login here</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

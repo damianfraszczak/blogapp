@@ -1,0 +1,6 @@
+{{ name }} ({{ email }}) recommends you read "{{ post.title }}"
+
+Read it here: {{ post_url }}
+
+{{ name }} says:
+{{ comments }}

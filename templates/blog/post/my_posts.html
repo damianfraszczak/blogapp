@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}My Posts{% endblock %}
+{% block content %}
+<h2>My Posts</h2>
+<a href="{% url 'blog:post_add' %}">+ Add New Post</a>
+{% for post in posts %}
+    <div>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.publish }}</p>
+        <a href="{{ post.get_absolute_url }}">View</a> |
+        <a href="{% url 'blog:post_edit' post.pk %}">Edit</a> |
+        <a href="{% url 'blog:post_delete' post.pk %}">Delete</a>
+    </div>
+{% empty %}
+    <p>You have no posts.</p>
+{% endfor %}
+{% endblock %}

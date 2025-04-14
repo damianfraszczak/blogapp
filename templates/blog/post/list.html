@@ -1,4 +1,4 @@
-{% extends "blog/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}My Blog{% endblock %}
 
@@ -16,6 +16,5 @@
         {{ post.body|truncatewords:30|linebreaks }}
     {% endfor %}
 
-    {#    {% include 'blog/pagination.html' with page=posts %}#}
-    {% include 'blog/pagination.html' with page=page_obj %}
+    {% include 'pagination.html' with page=page_obj %}
 {% endblock %}
