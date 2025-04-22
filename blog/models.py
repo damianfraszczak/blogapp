@@ -5,6 +5,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
+from blogapp import settings
+
 
 class PublishedPostManager(models.Manager):
     def get_queryset(self):
@@ -18,7 +20,7 @@ class Post(models.Model):
     title = models.TextField(max_length=255)
     slug = models.SlugField(max_length=256, unique_for_date="publish")
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="blog_posts"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="blog_posts"
     )
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
@@ -46,7 +48,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey("Post", on_delete=models.CASCADE, related_name="comments")
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     body = models.TextField()
     created = models.DateTimeField(default=timezone.now)
     active = models.BooleanField(default=True)

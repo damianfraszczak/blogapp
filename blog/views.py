@@ -1,15 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.context_processors import request
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 
 # Create your views here.
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from .forms import CommentForm, EmailPostForm, PostForm
-from .models import Post
+from blog.forms import CommentForm, EmailPostForm, PostForm
+from blog.models import Post
+from users.models import Company
 
 # https://docs.djangoproject.com/en/2.0/topics/class-based-views/intro/.
 
@@ -21,6 +24,13 @@ class PostListView(ListView):
     context_object_name = "posts"
     paginate_by = 3
     template_name = "blog/post/list.html"
+
+    def get_queryset(self):
+        site = get_current_site(self.request)
+        tenant = get_object_or_404(Company, site=site)
+        ## to sie rowna to samo co request.tenant dzieki middleware
+        tenant = getattr(self.request, "tenant", None)
+        return super().get_queryset().filter(author__company=tenant)
 
 
 def post_list(request):

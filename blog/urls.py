@@ -8,7 +8,7 @@ app_name = "blog"
 
 urlpatterns = [
     # name gdy wykorzystujemy np reverse
-    path("", views.post_list, name="post_list"),
+    path("list", views.post_list, name="post_list"),
     # path converters https://docs.djangoproject.com/en/2.0/topics/http/urls/#path-converters.
     path(
         "<int:year>/<int:month>/<int:day>/<slug:post>/",
