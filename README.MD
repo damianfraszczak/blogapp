@@ -11,11 +11,9 @@ Before starting, you should have the following software installed on your machin
 *   [Docker](https://www.docker.com/)
 *   [Docker Compose](https://docs.docker.com/compose/)
 
-Moreover it has preinstalled some standard Django and Vue libraries for build web applications.
+
 Getting Started
 ---------------
-
-
 
 ### Setting up the Backend
 
