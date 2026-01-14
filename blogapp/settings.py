@@ -124,7 +124,6 @@ SECRET_KEY = os.getenv(
     "django-insecure-p3k+1wxv-)*!ob@u8iz-lf%q73z%bd$c^5_8vv2+&nhj6)&#rl",
 )
 DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 LOGIN_URL = "login"
@@ -135,3 +134,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+PUBLIC_DOMAIN = os.getenv("PUBLIC_DOMAIN")
+
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = []
+
+if PUBLIC_DOMAIN:
+    ALLOWED_HOSTS.append(PUBLIC_DOMAIN)
+
+    if "." in PUBLIC_DOMAIN:
+        root = PUBLIC_DOMAIN.split(".", 1)[1]
+        ALLOWED_HOSTS.append(f".{root}")
+        CSRF_TRUSTED_ORIGINS.append(f"https://*.{root}")
+
+    CSRF_TRUSTED_ORIGINS.append(f"https://{PUBLIC_DOMAIN}")
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
