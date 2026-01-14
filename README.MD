@@ -17,7 +17,7 @@ Getting Started
 
 ### Setting up the Backend
 
-To set up the Django backend, navigate to the `backend` directory and run the following commands:
+To set up the Django backend, navigate to the `root` directory and run the following commands:
 
 ```bash
 docker-compose run web python manage.py migrate
